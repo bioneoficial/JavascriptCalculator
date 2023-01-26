@@ -31,7 +31,7 @@
       if (firstValue < 0 && operator === '-' && secondValue < 0) {
         operator = '+';
         display.value = eval(firstValue + operator + (secondValue * -1));
-      }else {
+      } else {
         display.value = eval((firstValue) + operator + (secondValue));
       }
       firstValue = null;
@@ -59,7 +59,7 @@
   }
 
   function  handleNegativeValue() {
-    if(display.value !== '')
+    if (display.value !== '')
     display.value = -Number(display.value)
   }
 

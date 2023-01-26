@@ -13,7 +13,7 @@ form{
   flex-direction: column;
 }
 
-.calculator-display {
+.calculatorDisplay {
   display: flex;
   text-align: right;
   margin-bottom: 10px;
@@ -22,13 +22,11 @@ form{
   background-color: #ccc;
   font-size: 2em;
   width: 89%;
+  flex-direction: column;
+  gap: 5px;
 }
 
-#display{
-  width: 100%;
-}
-
-.calculator-buttons {
+.calculatorButtons {
   display: flex;
   gap: 5px;
   border: #000 solid 1px;
@@ -36,14 +34,14 @@ form{
   width: 90%;
 }
 
-.calculator-numbers, .calculator-operators {
+.calculatorNumbers, .calculatorOperators {
   display: flex;
   flex-direction: column;
   gap: 5px;
   flex: 1;
 }
 
-.calculator-numbers:first-child button.number:last-child {
+.calculatorNumbers:first-child button.number:last-child {
   width: 203%;
   font-size: 2em;
 }

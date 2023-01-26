@@ -26,31 +26,32 @@
   <form>
     <div class="calculator" role="group" aria-label="calculator">
       <h1>Bione Calculator</h1>
-      <div class="calculator-display">
+      <div class="calculatorDisplay">
+        <input type="text" id="displayHistory" aria-label="calculator history" disabled />
         <input type="text" id="display" aria-label="calculator display" disabled />
       </div>
-      <div class="calculator-buttons">
-        <div class="calculator-numbers">
+      <div class="calculatorButtons">
+        <div class="calculatorNumbers">
           <button type="button" id="clear" value="AC">AC</button>
           <button type="button" class="number" value="7">7</button>
           <button type="button" class="number" value="4">4</button>
           <button type="button" class="number" value="1">1</button>
           <button type="button" class="number" value="0">0</button>
         </div>
-        <div class="calculator-numbers">
+        <div class="calculatorNumbers">
           <button type="button" id="negativeValue" value="+-">+-</button>
           <button type="button" class="number" value="8">8</button>
           <button type="button" class="number" value="5">5</button>
           <button type="button" class="number" value="2">2</button>
         </div>
-        <div class="calculator-numbers">
+        <div class="calculatorNumbers">
           <button type="button" id="onePercent" value="%">%</button>
           <button type="button" class="number" value="9">9</button>
           <button type="button" class="number" value="6">6</button>
           <button type="button" class="number" value="3">3</button>
           <button type="button" id="decimal" value=".">.</button>
         </div>
-        <div class="calculator-operators">
+        <div class="calculatorOperators">
           <button type="button" class="operator" value="/">/</button>
           <button type="button" class="operator" value="*">*</button>
           <button type="button" class="operator" value="-">-</button>

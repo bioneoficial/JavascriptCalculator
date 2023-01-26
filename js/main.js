@@ -1,10 +1,12 @@
   const calculator = document.querySelector('.calculator');
-  const display = document.querySelector('#display');
+  const display = calculator.querySelector('#display');
   const buttons = calculator.querySelectorAll('button');
+  const displayHistory = calculator.querySelector('#displayHistory');
   let firstValue = null;
   let operator = null;
   let waitingForSecondValue = false;
   let result = null;
+  let history = '';
 
   function handleNumber(e) {
     const value = Number(e.target.value);
@@ -14,10 +16,20 @@
     } else {
       display.value = (display.value === 0) ? value : display.value + value;
     }
+    if (display.value[display.value.length-1] === '.' && operator) {
+      history += '0';
+    }
+    displayHistory.value = history += value;
   }
 
   function handleOperator(e) {
     const value = e.target.value;
+    if (display.value[display.value.length-1] === '.') {
+      if(history[history.length-1] !== /[+\-*/=]/) {
+        history += '0';
+      }
+    }
+    displayHistory.value = history += value;
     if (firstValue && operator) {
       handleEqual();
     }
@@ -32,6 +44,13 @@
   }
 
   function handleEqual() {
+    if (display.value[display.value.length-1] === '.') {
+      if(history[history.length-1] !== /[+\-*/=]/) {
+        if(history[history.length-1] !== /[+\-*/=]/) {
+          history += '0';
+        }
+      }
+    }
     if (firstValue && operator && display.value) {
       let secondValue = parseFloat(display.value);
       if (firstValue < 0 && operator === '-' && secondValue < 0) {
@@ -40,6 +59,7 @@
       } else {
         result = eval((firstValue) + operator + (secondValue));
       }
+      displayHistory.value = history += `=${result}`;
       firstValue = result;
       display.value = result;
       operator = null;
@@ -52,6 +72,7 @@
     operator = null;
     waitingForSecondValue = false;
     result = null;
+    displayHistory.value = history = '';
   }
 
   function handleOnePercent() {
@@ -63,6 +84,7 @@
   function handleDecimal() {
     if (!display.value.includes('.')) {
       display.value += '.';
+      displayHistory.value = history += '.';
     }
   }
 

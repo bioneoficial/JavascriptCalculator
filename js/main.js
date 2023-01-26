@@ -11,7 +11,7 @@ function handleNumber(e) {
     display.value = value;
     waitingForSecondValue = false;
   } else {
-    display.value === '0' ? display.value = value : display.value += value;
+    display.value === 0 ? display.value = value : display.value += value;
   }
 }
 

@@ -7,8 +7,9 @@
   let waitingForSecondValue = false;
   let result = null;
   let history = '';
+  let operatorsGroup = ['+', '-', '*', '/'];
 
-  function handleNumber(e) {
+  const handleNumber = (e) => {
     const value = Number(e.target.value);
     if (waitingForSecondValue) {
       display.value = value;
@@ -22,14 +23,18 @@
     displayHistory.value = history += value;
   }
 
-  function handleOperator(e) {
+  const handleOperator = (e) => {
+    if(operator) return;
     const value = e.target.value;
     if (display.value[display.value.length-1] === '.') {
-      if(history[history.length-1] !== /[+\-*/=]/) {
+      if(!operatorsGroup.includes(history[history.length-1])) {
         history += '0';
       }
+    } if(operatorsGroup.includes(history[history.length-1])) {
+      return;
+    } else {
+      displayHistory.value = history += value;
     }
-    displayHistory.value = history += value;
     if (firstValue && operator) {
       handleEqual();
     }
@@ -43,7 +48,7 @@
     waitingForSecondValue = true;
   }
 
-  function handleEqual() {
+  const handleEqual = () => {
     if (display.value[display.value.length-1] === '.') {
       if(history[history.length-1] !== /[+\-*/=]/) {
         if(history[history.length-1] !== /[+\-*/=]/) {
@@ -66,7 +71,7 @@
     }
   }
 
-  function handleClear() {
+  const handleClear = () => {
     display.value = '';
     firstValue = null;
     operator = null;
@@ -75,38 +80,58 @@
     displayHistory.value = history = '';
   }
 
-  function handleOnePercent() {
+  const handleOnePercent = () => {
     if (!isNaN(display.value)) {
       display.value = Number(display.value) / 100;
     }
   }
 
-  function handleDecimal() {
+  const handleDecimal = () => {
     if (!display.value.includes('.')) {
       display.value += '.';
       displayHistory.value = history += '.';
     }
   }
 
-  function  handleNegativeValue() {
-    if (display.value !== '')
-    display.value = -Number(display.value)
-  }
+    const handleNegativeValue = () => {
+      if (display.value !== '')
+      display.value = -Number(display.value)
+    }
 
-  buttons.forEach(button => {
-    if (button.classList.contains('number')) {
-      button.addEventListener('click', handleNumber);
-    } else if (button.classList.contains('operator')) {
-      button.addEventListener('click', handleOperator);
-    } else if (button.id === 'equals') {
-      button.addEventListener('click', handleEqual);
-    } else if (button.id === 'clear') {
-      button.addEventListener('click', handleClear);
-    } else if (button.id === 'decimal') {
-      button.addEventListener('click', handleDecimal);
-    } else if (button.id === 'onePercent') {
-      button.addEventListener('click', handleOnePercent);
-    } else if (button.id === 'negativeValue') {
-      button.addEventListener('click', handleNegativeValue );
+    buttons.forEach(button => {
+      if (button.classList.contains('number')) {
+        button.addEventListener('click', handleNumber);
+      } else if (button.classList.contains('operator')) {
+        button.addEventListener('click', handleOperator);
+      } else if (button.id === 'equals') {
+        button.addEventListener('click', handleEqual);
+      } else if (button.id === 'clear') {
+        button.addEventListener('click', handleClear);
+      } else if (button.id === 'decimal') {
+        button.addEventListener('click', handleDecimal);
+      } else if (button.id === 'onePercent') {
+        button.addEventListener('click', handleOnePercent);
+      } else if (button.id === 'negativeValue') {
+        button.addEventListener('click', handleNegativeValue );
+      }
+    });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/") {
+      handleOperator({ target: { value: event.key } });
+    } else if (event.key === "Enter") {
+      handleEqual();
+    } else if (event.key === "c" || event.key === "Escape") {
+      handleClear();
+    } else if (event.key === "%") {
+      handleOnePercent();
+    } else if (event.key === ".") {
+      handleDecimal();
+    } else if (event.key === "-") {
+      handleNegativeValue();
+    } else if (event.code.startsWith("Numpad")) {
+      handleNumber({ target: { value: event.key } });
+    } else if (event.code.startsWith("Digit")) {
+      handleNumber({ target: { value: event.key } });
     }
   });

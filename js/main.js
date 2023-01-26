@@ -28,7 +28,7 @@
   function handleEqual() {
     if (firstValue && operator && display.value) {
       let secondValue = parseFloat(display.value);
-      if(firstValue < 0 && operator === '-' && secondValue < 0) {
+      if (firstValue < 0 && operator === '-' && secondValue < 0) {
         operator = '+';
         display.value = eval(firstValue + operator + (secondValue * -1));
       }else {

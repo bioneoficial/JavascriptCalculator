@@ -261,3 +261,59 @@ textarea {
   }
 }
 
+form{
+  display: flex;
+  justify-content: center;
+}
+
+.calculator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  width: 50vw;
+  border: #000 solid 10px;
+  flex-direction: column;
+}
+
+.calculator-display {
+  display: flex;
+  text-align: right;
+  margin-bottom: 10px;
+  border: #000 solid 1px;
+  padding: 5px;
+  background-color: #ccc;
+  font-size: 2em;
+  width: 89%;
+}
+
+#display{
+  width: 100%;
+}
+
+.calculator-buttons {
+  display: flex;
+  gap: 5px;
+  border: #000 solid 1px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.calculator-numbers, .calculator-operators {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.calculator-numbers:first-child button.number:last-child {
+  width: 205%;
+  font-size: 2em;
+}
+
+button {
+font-size: 2em;
+height: 50px;
+background-color: #eee;
+border: none;
+}

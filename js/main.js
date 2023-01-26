@@ -4,6 +4,7 @@
   let firstValue = null;
   let operator = null;
   let waitingForSecondValue = false;
+  let result = null;
 
   function handleNumber(e) {
     const value = Number(e.target.value);
@@ -17,12 +18,17 @@
 
   function handleOperator(e) {
     const value = e.target.value;
-    if (!firstValue) {
-      firstValue = parseFloat(display.value);
+    if (firstValue && operator) {
+      handleEqual();
     }
     operator = value;
+    if (result) {
+      firstValue = result;
+    } else if (!firstValue) {
+      firstValue = parseFloat(display.value);
+      display.value = '';
+    }
     waitingForSecondValue = true;
-    display.value = '';
   }
 
   function handleEqual() {
@@ -30,11 +36,12 @@
       let secondValue = parseFloat(display.value);
       if (firstValue < 0 && operator === '-' && secondValue < 0) {
         operator = '+';
-        display.value = eval(firstValue + operator + (secondValue * -1));
+        result = eval(firstValue + operator + (secondValue * -1));
       } else {
-        display.value = eval((firstValue) + operator + (secondValue));
+        result = eval((firstValue) + operator + (secondValue));
       }
-      firstValue = null;
+      firstValue = result;
+      display.value = result;
       operator = null;
     }
   }
@@ -44,6 +51,7 @@
     firstValue = null;
     operator = null;
     waitingForSecondValue = false;
+    result = null;
   }
 
   function handleOnePercent() {

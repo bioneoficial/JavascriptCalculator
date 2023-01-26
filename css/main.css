@@ -54,3 +54,13 @@ height: 50px;
 background-color: #eee;
 border: none;
 }
+
+button:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+button:active {
+  background-color: #ccc;
+  transform: scale(0.95);
+}

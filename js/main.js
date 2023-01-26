@@ -27,7 +27,13 @@ function handleOperator(e) {
 
 function handleEqual() {
   if (firstValue && operator && display.value) {
-    display.value = eval(firstValue + operator + display.value);
+    let secondValue = parseFloat(display.value);
+    if(Number(firstValue) < 0 && operator === '-' && Number(display.value) < 0) {
+      operator = '+';
+      display.value = eval(firstValue + operator + (secondValue * -1));
+    }else {
+      display.value = eval((firstValue) + operator + (secondValue));
+    }
     firstValue = null;
     operator = null;
   }
@@ -63,7 +69,9 @@ buttons.forEach(button => {
     button.addEventListener('click', handleClear);
   } else if (button.id === 'decimal') {
     button.addEventListener('click', handleDecimal);
-  } else if (button.id=== 'onePercent') {
+  } else if (button.id === 'onePercent') {
     button.addEventListener('click', handleOnePercent);
+  } else if (button.id === 'negativeValue') {
+    button.addEventListener('click', () => { display.value = -Number(display.value) } );
   }
 });
